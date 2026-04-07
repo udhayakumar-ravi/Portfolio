@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Udhayakumar Ravi | Banking Ops | Commercial Lending | Financial Crime Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --ink: #1a1a18;
+    --muted: #7a7a74;
+    --accent: #2d6a4f;
+    --accent-light: #e8f4ef;
+    --accent2: #e76f51;
+    --border: #e8e7e3;
+    --radius: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg); color: var(--ink);
+    font-size: 16px; line-height: 1.65; overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 6vw;
+    background: rgba(247,246,243,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.07); }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif; font-size: 1rem;
+    color: var(--ink); text-decoration: none; letter-spacing: -.2px;
+    white-space: nowrap;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: .8rem; font-weight: 500; letter-spacing: .04em;
+    transition: color .2s; text-transform: uppercase;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 120px 6vw 80px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -80px; right: -120px;
+    width: 640px; height: 640px;
+    background: radial-gradient(circle, #d8ede5 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -60px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #fde8e1 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 820px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-light); color: var(--accent);
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 999px;
+    margin-bottom: 28px; animation: fadeUp .6s ease both;
+  }
+  .hero-tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+    line-height: 1.1; letter-spacing: -.03em;
+    animation: fadeUp .6s .1s ease both;
+  }
+  h1 em {
+    font-style: italic; color: var(--accent);
+    font-size: clamp(1.3rem, 2.8vw, 2rem);
+    display: block; margin-top: 10px;
+  }
+  .hero-sub {
+    margin-top: 22px; font-size: 1.08rem; color: var(--muted);
+    max-width: 580px; font-weight: 400; animation: fadeUp .6s .2s ease both;
+  }
+  .hero-cta {
+    margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp .6s .3s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px; border-radius: var(--radius);
+    font-size: .92rem; font-weight: 600; text-decoration: none;
+    transition: transform .2s, box-shadow .2s; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px rgba(45,106,79,.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,106,79,.35); }
+
+  /* SECTIONS */
+  section { padding: 100px 6vw; }
+  .section-label {
+    font-size: .78rem; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    letter-spacing: -.02em; line-height: 1.15; margin-bottom: 48px;
+  }
+  h2 span { color: var(--accent); }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: start; max-width: 1100px; }
+  .about-text p { color: #4a4a44; margin-bottom: 14px; font-size: 1rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .stat-card {
+    background: var(--bg); border-radius: var(--radius);
+    padding: 20px; border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+  .highlights { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .hl-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--bg); border-radius: 10px; padding: 12px 16px;
+    border: 1px solid var(--border); font-size: .88rem; color: var(--ink);
+  }
+  .hl-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ABOUT VISUAL */
+  .about-visual {
+    background: linear-gradient(135deg, var(--accent-light) 0%, #d4eddf 100%);
+    border-radius: 20px; padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 12px;
+    position: sticky; top: 90px;
+  }
+  .about-visual-title {
+    font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 2px;
+  }
+  .pill {
+    background: white; border-radius: 999px;
+    padding: 8px 16px; font-size: .83rem; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07); width: fit-content;
+  }
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-green { background: var(--accent); }
+  .dot-orange { background: var(--accent2); }
+  .dot-blue { background: #4a90d9; }
+  .dot-purple { background: #7c5cbf; }
+  .visual-divider { border-top: 1px solid rgba(45,106,79,.2); padding-top: 16px; margin-top: 4px; }
+
+  /* TAGS */
+  .tag {
+    font-size: .76rem; font-weight: 500; padding: 4px 11px;
+    border-radius: 999px; background: var(--bg); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; }
+  .skill-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 28px; border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 16px;
+  }
+  .skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+
+  /* PROJECTS */
+  #projects { background: var(--surface); }
+  .projects-grid { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 1100px; }
+  .project-card {
+    border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; transition: transform .25s, box-shadow .25s;
+    background: var(--bg); display: grid; grid-template-columns: 1fr 1.5fr;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.1); }
+  .project-banner {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; min-height: 300px;
+  }
+  .banner-aml { background: linear-gradient(135deg, #1a3a2e 0%, #2d6a4f 100%); }
+  .banner-grid-overlay {
+    position: absolute; inset: 0; opacity: .12;
+    background-image: linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .banner-inner { position: relative; z-index: 1; text-align: center; padding: 32px; }
+  .banner-inner .big-icon { font-size: 3.5rem; display: block; margin-bottom: 20px; }
+  .banner-stat {
+    display: inline-flex; flex-direction: column; align-items: center;
+    background: rgba(255,255,255,.13); border-radius: 12px;
+    padding: 10px 14px; margin: 4px; min-width: 75px;
+  }
+  .banner-stat-num { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: white; line-height: 1; }
+  .banner-stat-label { font-size: .65rem; color: rgba(255,255,255,.7); margin-top: 3px; text-transform: uppercase; letter-spacing: .06em; }
+  .banner-stats-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .project-body { padding: 36px; }
+  .project-badge {
+    font-size: .74rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--accent);
+    background: var(--accent-light); padding: 4px 12px; border-radius: 999px;
+    margin-bottom: 12px; display: inline-block;
+  }
+  .project-body h3 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 12px; }
+  .project-body p { font-size: .92rem; color: var(--muted); margin-bottom: 16px; line-height: 1.65; }
+  .project-body ul { padding-left: 16px; margin-bottom: 20px; }
+  .project-body li { font-size: .88rem; color: var(--muted); margin-bottom: 6px; }
+  .project-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .link-btn {
+    font-size: .82rem; font-weight: 600; padding: 9px 20px;
+    border-radius: 8px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .link-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  .link-solid { background: var(--accent); color: white; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .timeline { max-width: 860px; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .tl-item { display: flex; gap: 32px; margin-bottom: 52px; }
+  .tl-dot {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: var(--surface); border: 2px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 4px; position: relative; z-index: 1;
+  }
+  .tl-dot::after { content: ''; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+  .tl-content { flex: 1; }
+  .tl-period { font-size: .76rem; color: var(--muted); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 4px; }
+  .tl-content h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 2px; }
+  .tl-company { font-size: .92rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
+  .tl-content ul { padding-left: 18px; margin-bottom: 16px; }
+  .tl-content li { font-size: .91rem; color: var(--muted); margin-bottom: 7px; line-height: 1.55; }
+  .tl-highlights { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; margin-bottom: 18px; }
+  .tl-hl {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--surface); border-radius: 10px;
+    padding: 11px 14px; border: 1px solid var(--border); font-size: .87rem; color: var(--ink);
+  }
+  .tl-systems-title { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; margin-top: 18px; }
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--surface); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1100px; }
+  .cert-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+    transition: transform .2s, box-shadow .2s;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .cert-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.08); }
+  .cert-logo {
+    width: 46px; height: 46px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .cert-card h3 { font-size: .94rem; font-weight: 600; line-height: 1.35; }
+  .cert-issuer { font-size: .82rem; color: var(--muted); font-weight: 500; }
+  .cert-desc { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+  .cert-year {
+    font-size: .75rem; font-weight: 600; color: var(--accent);
+    background: var(--accent-light); padding: 3px 10px;
+    border-radius: 999px; align-self: flex-start; margin-top: auto;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(160deg, #1a3a2e 0%, #2d6a4f 100%);
+    color: white; text-align: center;
+  }
+  #contact .section-label { color: #7ecba1; }
+  #contact h2 { color: white; margin-bottom: 16px; }
+  #contact h2 span { color: #7ecba1; }
+  #contact .sub { color: rgba(255,255,255,.65); font-size: 1.05rem; margin-bottom: 12px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .contact-location { color: rgba(255,255,255,.5); font-size: .88rem; margin-bottom: 40px; }
+  .contact-email {
+    font-size: clamp(1.2rem, 3vw, 1.6rem); font-family: 'DM Serif Display', serif;
+    color: white; text-decoration: none; opacity: .9;
+    transition: opacity .2s; display: block; margin-bottom: 32px;
+  }
+  .contact-email:hover { opacity: 1; }
+  .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 26px; border-radius: var(--radius);
+    font-size: .9rem; font-weight: 600; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .contact-btn.white { background: white; color: var(--ink); box-shadow: 0 4px 20px rgba(0,0,0,.2); }
+  .contact-btn.white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.25); }
+  .contact-btn.outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,.35); }
+  .contact-btn.outline-white:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: #111; color: rgba(255,255,255,.35); text-align: center; padding: 24px 6vw; font-size: .82rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { position: static; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-banner { min-height: 240px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 14px 5vw; }
+    .nav-links { display: none; }
+    section { padding: 72px 5vw; }
+    h1 em { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Udhayakumar Ravi<span>'s Portfolio</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Open to Opportunities</div>
+    <h1>Udhayakumar Ravi
+      <em>Banking Ops · Commercial Lending · Financial Crime Analytics</em>
+    </h1>
+    <p class="hero-sub">Banking Operations professional with 2 years at Accenture supporting U.S. commercial lending — KYC compliance, loan origination, and financial crime analytics. Based in Chennai, India.</p>
+    <div class="hero-cta">
+      <a href="mailto:udhaya26880@gmail.com" class="btn btn-primary">Get In Touch ✉</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2>Operations professional with a <span>compliance-first</span> mindset</h2>
+      <p>I'm a Banking Operations professional with 2 years of experience at Accenture, supporting a U.S. banking client across the full Commercial Loan Origination lifecycle — from KYC validation and compliance screening to loan setup and pre-underwriting documentation.</p>
+      <p>I work with complex lending products including SBA Loans (7a, 504, Express), Term Loans, Revolving and Non-Revolving Lines of Credit, Bridge Loans, Swap Loans, Syndicated Facilities, and Letters of Credit — across entity types such as LLCs, Corporations, Trusts, Non-Profit and Religious Organizations.</p>
+      <p>Beyond operations, I'm deeply interested in Financial Crime Investigation, AML, and KYC Compliance — areas where my documentation accuracy, compliance exposure, and eye for discrepancies translate directly. I hold a Bachelor's in Commerce and an MBA in Human Resource Management.</p>
+
+      <div class="highlights">
+        <div class="hl-item"><span class="hl-icon">🏆</span><span><strong>106% Production · 99.98% Quality</strong> — Last Performance Cycle</span></div>
+        <div class="hl-item"><span class="hl-icon">🏆</span><span><strong>Top Performer</strong> — Recognised 9 times</span></div>
+        <div class="hl-item"><span class="hl-icon">⚡</span><span><strong>Promoted to QC Reviewer</strong> within 5 months of joining</span></div>
+        <div class="hl-item"><span class="hl-icon">🎯</span><span>Identified discrepancies that <strong>proactively prevented incorrect disbursals</strong></span></div>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-num">2 yrs</div><div class="stat-label">Accenture · U.S. Banking Client</div></div>
+        <div class="stat-card"><div class="stat-num">7+</div><div class="stat-label">Lending Products Handled</div></div>
+        <div class="stat-card"><div class="stat-num">9×</div><div class="stat-label">Top Performer Recognition</div></div>
+        <div class="stat-card"><div class="stat-num">99.98%</div><div class="stat-label">Quality Score</div></div>
+        <div class="stat-card"><div class="stat-num">106%</div><div class="stat-label">Productivity — Last Cycle</div></div>
+        <div class="stat-card"><div class="stat-num">5 mo</div><div class="stat-label">Promoted to QC Reviewer</div></div>
+      </div>
+    </div>
+
+    <div class="about-visual">
+      <div class="about-visual-title">Specialisations</div>
+      <div class="pill"><span class="pill-dot dot-green"></span> KYC Validation &amp; OFAC Screening</div>
+      <div class="pill"><span class="pill-dot dot-blue"></span> Commercial Loan Origination</div>
+      <div class="pill"><span class="pill-dot dot-orange"></span> SBA Loans (7a · 504 · Express)</div>
+      <div class="pill"><span class="pill-dot dot-purple"></span> Financial Document Review</div>
+      <div class="pill"><span class="pill-dot dot-green"></span> Lines of Credit</div>
+      <div class="pill"><span class="pill-dot dot-blue"></span> Letters of Credit</div>
+      <div class="pill"><span class="pill-dot dot-orange"></span> AML Transaction Monitoring</div>
+      <div class="pill"><span class="pill-dot dot-purple"></span> SAR / STR Reporting</div>
+      <div class="pill"><span class="pill-dot dot-green"></span> EDD Case Management</div>
+      <div class="pill"><span class="pill-dot dot-blue"></span> Sanctions Screening</div>
+
+      <div class="visual-divider">
+        <div class="about-visual-title" style="margin-bottom:10px;">Banking Systems</div>
+        <div class="tag-row">
+          <span class="tag">Salesforce</span>
+          <span class="tag">AFS Vision</span>
+          <span class="tag">Moody's CreditLens</span>
+          <span class="tag">Commercial Lending Gateway</span>
+          <span class="tag">Client Central</span>
+        </div>
+        <div class="about-visual-title" style="margin-top:16px;margin-bottom:10px;">Verification Tools</div>
+        <div class="tag-row">
+          <span class="tag">LexisNexis</span>
+          <span class="tag">Equifax</span>
+          <span class="tag">CAIVRS</span>
+          <span class="tag">ETRAN</span>
+          <span class="tag">SAM</span>
+          <span class="tag">Secretary of State</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <h2>Tools &amp; <span>Technologies</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#e8f4ef;">📊</div>
+      <h3>Data Visualisation</h3>
+      <div class="tag-row">
+        <span class="tag">Power BI Desktop</span>
+        <span class="tag">Power Query</span>
+        <span class="tag">DAX Basics</span>
+        <span class="tag">Data Visualization</span>
+        <span class="tag">Star Schema</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#e8f0fa;">🗄️</div>
+      <h3>MySQL &amp; SQL</h3>
+      <div class="tag-row">
+        <span class="tag">Data Filtering</span>
+        <span class="tag">Joins &amp; Aggregations</span>
+        <span class="tag">Subqueries</span>
+        <span class="tag">Views</span>
+        <span class="tag">DDL / DML</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#fff3cd;">📋</div>
+      <h3>Microsoft Excel</h3>
+      <div class="tag-row">
+        <span class="tag">VLOOKUP / XLOOKUP</span>
+        <span class="tag">Pivot Tables</span>
+        <span class="tag">Data Cleaning</span>
+        <span class="tag">Conditional Formatting</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#fde8e1;">🛡️</div>
+      <h3>AML / KYC Compliance</h3>
+      <div class="tag-row">
+        <span class="tag">KYC Validation</span>
+        <span class="tag">OFAC Screening</span>
+        <span class="tag">Transaction Monitoring</span>
+        <span class="tag">EDD</span>
+        <span class="tag">SAR / STR</span>
+        <span class="tag">Sanctions Screening</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#f0eafa;">🏦</div>
+      <h3>Banking Systems</h3>
+      <div class="tag-row">
+        <span class="tag">Salesforce</span>
+        <span class="tag">AFS Vision</span>
+        <span class="tag">Moody's CreditLens</span>
+        <span class="tag">Commercial Lending Gateway</span>
+        <span class="tag">Client Central</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#fdf3e1;">🔍</div>
+      <h3>Verification Tools</h3>
+      <div class="tag-row">
+        <span class="tag">LexisNexis</span>
+        <span class="tag">Equifax</span>
+        <span class="tag">CAIVRS</span>
+        <span class="tag">ETRAN</span>
+        <span class="tag">SAM</span>
+        <span class="tag">Secretary of State</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#e8f4ef;">📜</div>
+      <h3>Regulatory Frameworks</h3>
+      <div class="tag-row">
+        <span class="tag">FATF</span>
+        <span class="tag">OFAC</span>
+        <span class="tag">OFSI</span>
+        <span class="tag">EU AML Directives</span>
+        <span class="tag">UN Sanctions</span>
+        <span class="tag">PEP</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon" style="background:#e8f0fa;">💼</div>
+      <h3>Commercial Lending</h3>
+      <div class="tag-row">
+        <span class="tag">SBA 7a · 504 · Express</span>
+        <span class="tag">Term Loans</span>
+        <span class="tag">Lines of Credit</span>
+        <span class="tag">Bridge Loans</span>
+        <span class="tag">Swap Loans</span>
+        <span class="tag">Syndicated Facilities</span>
+        <span class="tag">Letters of Credit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Projects</p>
+  <h2>Featured <span>Work</span></h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-banner banner-aml">
+        <div class="banner-grid-overlay"></div>
+        <div class="banner-inner">
+          <span class="big-icon">🛡️</span>
+          <div class="banner-stats-row">
+            <div class="banner-stat"><span class="banner-stat-num">100</span><span class="banner-stat-label">Customers</span></div>
+            <div class="banner-stat"><span class="banner-stat-num">996</span><span class="banner-stat-label">Transactions</span></div>
+            <div class="banner-stat"><span class="banner-stat-num">407</span><span class="banner-stat-label">Alerts</span></div>
+            <div class="banner-stat"><span class="banner-stat-num">21</span><span class="banner-stat-label">EDD Cases</span></div>
+            <div class="banner-stat"><span class="banner-stat-num">10</span><span class="banner-stat-label">SARs Filed</span></div>
+            <div class="banner-stat"><span class="banner-stat-num">5</span><span class="banner-stat-label">Countries</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <span class="project-badge">★ Featured Project</span>
+        <h3>TransactIQ — AML &amp; KYC Analytics Platform</h3>
+        <p>An end-to-end AML/KYC analytics solution built on Power BI, backed by a structured MySQL database (<em>aml_kyc_analytics</em>) and seeded via Excel. Delivers compliance intelligence across customer risk profiling, transaction monitoring, EDD workflows, and SAR/STR regulatory reporting.</p>
+        <ul>
+          <li>6 Power BI dashboard pages covering the full AML/KYC compliance lifecycle</li>
+          <li>14-table MySQL star schema with 4 analytical views</li>
+          <li>Covers FATF, OFAC, UN, EU, OFSI, and PEP sanctions frameworks</li>
+          <li>India risk concentration analysis across 5 countries</li>
+          <li>97% KYC completion · 47.6% SAR conversion · 71.4% SLA compliance</li>
+        </ul>
+        <div class="tag-row" style="margin-bottom:22px;">
+          <span class="tag">Power BI</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Excel</span>
+          <span class="tag">DAX</span>
+          <span class="tag">Star Schema</span>
+          <span class="tag">AML</span>
+          <span class="tag">KYC</span>
+          <span class="tag">SAR / STR</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/udhayakumar-ravi/TransactIQ-AML-KYC-Analytics" target="_blank" class="link-btn link-solid">GitHub Repo ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Experience</p>
+  <h2>Work <span>History</span></h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-period">May 2024 – April 2026</div>
+        <h3>Banking Operations New Associate</h3>
+        <div class="tl-company">Accenture · Full-time</div>
+        <p style="font-size:.91rem;color:var(--muted);margin-bottom:14px;">Supporting a U.S. banking client across the Commercial Lending Loan Origination lifecycle, with a focus on loan preparation, loan setup, and pre-underwriting operations for commercial clients across multiple lending products.</p>
+        <ul>
+          <li>Processed commercial loan applications across 7+ lending products including SBA Loans (7a, 504, Express), Term Loans, Revolving and Non-Revolving Lines of Credit, Bridge Loans, Swap Loans, Syndicated Facilities, and Letters of Credit</li>
+          <li>Performed KYC validation, OFAC screening, identity verification, and regulatory compliance checks using LexisNexis, Equifax, CAIVRS, ETRAN, SAM, and Secretary of State verification</li>
+          <li>Reviewed and validated financial documents including business and personal tax returns, CPA financial statements, AR aging reports, debt schedules, appraisal reports, and purchase agreements</li>
+          <li>Worked across multiple entity types — Sole Proprietorships, LLCs, LLPs, Corporations, Trusts, Non-Profit and Religious Organizations</li>
+          <li>Operated core banking systems including Salesforce, Commercial Lending Gateway, Moody's CreditLens, AFS Vision, and Client Central</li>
+          <li>Coordinated with Relationship Managers, Lending Process Managers, Loan Origination Specialists, Portfolio Managers, and Credit Risk Officers</li>
+          <li>Validated borrower information and loan details ensuring audit-ready documentation and full SLA compliance</li>
+          <li>Promoted to Loan Setup Quality Reviewer within 5 months — independently validating setups and documentation accuracy across the team</li>
+          <li>Identified critical documentation discrepancies that proactively prevented incorrect disbursals, reducing operational risk</li>
+        </ul>
+        <div class="tl-highlights">
+          <div class="tl-hl">🏆 <span><strong>Top Performer</strong> — Recognised 9 times across performance cycles</span></div>
+          <div class="tl-hl">📈 <span><strong>106% Production · 99.98% Quality</strong> — Last Performance Cycle</span></div>
+          <div class="tl-hl">⚡ <span><strong>Promoted to QC Reviewer</strong> within 5 months of joining</span></div>
+        </div>
+        <div class="tl-systems-title">Systems &amp; Tools</div>
+        <div class="tag-row">
+          <span class="tag">Salesforce</span>
+          <span class="tag">AFS Vision</span>
+          <span class="tag">Moody's CreditLens</span>
+          <span class="tag">Commercial Lending Gateway</span>
+          <span class="tag">Client Central</span>
+          <span class="tag">LexisNexis</span>
+          <span class="tag">Equifax</span>
+          <span class="tag">CAIVRS</span>
+          <span class="tag">ETRAN</span>
+          <span class="tag">SAM</span>
+          <span class="tag">Secretary of State</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-label">Certifications</p>
+  <h2>Credentials &amp; <span>Learning</span></h2>
+  <div class="certs-grid">
+
+    <div class="cert-card">
+      <div class="cert-logo" style="background:#fde8e1;">🛡️</div>
+      <h3>Foundation in AML and KYC</h3>
+      <div class="cert-issuer">KYC Lookup</div>
+      <div class="cert-desc">Customer due diligence, risk-based approaches, suspicious activity identification, and regulatory compliance frameworks.</div>
+      <div class="cert-year">Certification</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo" style="background:#e8f4ef;">📊</div>
+      <h3>Analyzing and Visualizing Data with Microsoft Power BI</h3>
+      <div class="cert-issuer">Office Master</div>
+      <div class="cert-desc">Hands-on Power BI workshop covering data visualization, Power Query, and DAX basics for financial services reporting.</div>
+      <div class="cert-year">Workshop</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo" style="background:#e8f0fa;">🗄️</div>
+      <h3>Introduction to SQL</h3>
+      <div class="cert-issuer">Simplilearn</div>
+      <div class="cert-desc">Foundational SQL covering data querying, filtering, joins, and aggregations for financial data extraction and analysis.</div>
+      <div class="cert-year">Course</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo" style="background:#fff3cd;">📋</div>
+      <h3>Microsoft Excel Boot Camp</h3>
+      <div class="cert-issuer">LetsUpgrade</div>
+      <div class="cert-desc">Intensive Excel training covering data cleaning, Pivot Tables, and Lookup Functions for banking operations data management.</div>
+      <div class="cert-year">Boot Camp</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo" style="background:#f0eafa;">🎓</div>
+      <h3>Data Analytics Internship</h3>
+      <div class="cert-issuer">NoviTech R&amp;D Pvt Ltd</div>
+      <div class="cert-desc">Hands-on data analytics exposure covering data collection, cleaning, and analysis with real datasets.</div>
+      <div class="cert-year">Internship</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <h2>Let's work <span>together</span></h2>
+  <p class="sub">Open to Banking Operations, Commercial Lending, and Financial Crime Investigation roles. Feel free to reach out.</p>
+  <p class="contact-location">📍 Chennai, India</p>
+  <a href="mailto:udhaya26880@gmail.com" class="contact-email">udhaya26880@gmail.com</a>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/udhayakumar-ravi" target="_blank" class="contact-btn white">💼 LinkedIn</a>
+    <a href="https://github.com/udhayakumar-ravi" target="_blank" class="contact-btn outline-white">🐙 GitHub</a>
+    <a href="https://wa.me/918667782613" target="_blank" class="contact-btn outline-white">💬 WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <p>Udhayakumar Ravi · Banking Ops · Commercial Lending · Financial Crime Analytics · Chennai, India</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+</body>
+</html>
